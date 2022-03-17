@@ -24,7 +24,7 @@ function findPrimes(start, range) {
 
 if (isMainThread) { // 부모일 때 
     const max = 10_000_000;
-    const threadCount = 10; // 이 값을 변경하면서 최적의 스레드 값 찾아보기
+    const threadCount = 8; // 이 값을 변경하면서 최적의 스레드 값 찾아보기
     const threads = new Set();
     const range = Math.ceil((max-min)/threadCount);
     let start = min;
