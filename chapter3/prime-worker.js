@@ -1,3 +1,5 @@
+// 멀티 스레딩 코딩
+
 const { Worker, isMainThread, parentPort, workerData} = require('worker_threads');
 
 const min = 2;
