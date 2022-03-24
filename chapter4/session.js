@@ -24,6 +24,8 @@ http.createServer(async (req, res) => {
     const { name } = qs.parse(query);
     const expires = new Date();
     expires.setMinutes(expires.getMinutes() + 5);
+
+    // 우리가 사용할 키 
     const uniqueInt = Date.now();
     session[uniqueInt] = {
       name,
