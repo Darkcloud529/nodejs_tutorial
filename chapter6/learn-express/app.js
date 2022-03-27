@@ -34,16 +34,40 @@ app.use((req,res,next) => {
 //     next(); 
 // });
 
-app.get('/', (req,res) => {
-    // 요청 한번에 응답을 한 번만 보내야한다. 
-    // 그런데 아래코드첢 요청 한번에 응답을 3번(sendFile, send, json)을 보내려 하면 아래와 같은 에러가 발생한다. 
-    // Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
-    res.sendFile(path.join(__dirname, 'index.html'));
-    res.send('안녕하세요.');
-    res.json({hello:'zerocho'});
-    // 이미 응답을 보내고 난 후 writeHead()를 쓰면 똑같이 에러가 발생합니다. 
-    res.writeHead()
-});
+// app.get('/', (req,res) => {
+//     // 요청 한번에 응답을 한 번만 보내야한다. 
+//     // 그런데 아래코드첢 요청 한번에 응답을 3번(sendFile, send, json)을 보내려 하면 아래와 같은 에러가 발생한다. 
+//     // Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+//     res.sendFile(path.join(__dirname, 'index.html'));
+//     res.send('안녕하세요.');
+//     res.json({hello:'zerocho'});
+//     // 이미 응답을 보내고 난 후 writeHead()를 쓰면 똑같이 에러가 발생합니다. 
+//     res.writeHead()
+// });
+
+// app.use((req,res,next) => {
+//     console.log('1 요청에 실행하고 싶어요.');
+//     next();
+// }, (req,res,next) => {
+//     try {
+//         console.log(asdfasdfasdf);
+//     } catch(error) {
+//         // 에러를 전달할 때는 next()를 사용한다.
+//         next(error);
+//     }
+// });
+
+// route를 분기할때도 next()를 사용한다. 
+// app.get('/', (req,res,next) => {
+//     if(true) {
+//         next('route');
+//     } else {
+//         next();
+//     }
+// }, (req, res) => {
+//     console.log('실행되나요?');
+// });
+
 
 app.get('/', (req,res, next) => {
     //res.send('Hello, Express');
@@ -54,6 +78,7 @@ app.get('/', (req,res, next) => {
     res.sendFile(path.join(__dirname, '/index.html'));
 });
 
+// 모든 에러는 여기서 처리가 됨.
 app.use((err,req,res,next) => {
     console.log(err);
     // 기본적으로 status(200)으로 설정되어 있다. 
