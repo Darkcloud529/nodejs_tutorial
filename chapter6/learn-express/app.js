@@ -1,11 +1,18 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
 
 // 작성할 때 순서가 중요합니다. 
 // 위에서부터 아래로 진행됩니다!
 // 범위가 넓은 미들웨어는 뒤쪽으로 이동
 app.set( 'port', process.env.PORT || 3000);
+
+app.use(morgan('dev'));
+app.use(cookieParser('smleepassword'));
+app.use(express.json());// 클라이언트에서 json 데이터를 보냈을때 json 데이터를 파싱해서 req.body에 담아줌 
+app.use(express.urlencoded({extended:true}));// form 데이터를 파싱해줌, true : qs , false : querystring
 
 app.use((req,res,next) => {
     console.log('모든 요청에 다 실행됩니다.');
@@ -69,12 +76,17 @@ app.use((req,res,next) => {
 // });
 
 
-app.get('/', (req,res, next) => {
+app.get('/', (req, res, next) => {
     //res.send('Hello, Express');
-    console.log('GET / 요청에서만 실행됩니다.');
-    next();
-},(req,res) => {
-    throw new Error('에러는 에러 처리 미들웨어로 갑니다.');
+    // 4장 쿠키 생성과 비교해보기
+    req.cookies; // {mycookie: 'test'}
+    req.signedCookies; // 암호화된 쿠키 사용 
+    // 'Set-Cookie': `name=${encodeURIComponent(name)}; Expires=${expires.toGMTString()};  HttpOnly; Path=/`,
+    res.cookie('name', encodeURIComponent(name), {
+        expires: new Date(),
+        httpOnly: true,
+        path: '/',
+    })
     res.sendFile(path.join(__dirname, '/index.html'));
 });
 
