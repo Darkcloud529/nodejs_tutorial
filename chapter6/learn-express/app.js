@@ -1,5 +1,7 @@
 const express = require('express');
 const path = require('path');
+const session = require('express-session');
+const multer = require('multer');
 const app = express();
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
@@ -9,10 +11,13 @@ const cookieParser = require('cookie-parser');
 // 범위가 넓은 미들웨어는 뒤쪽으로 이동
 app.set( 'port', process.env.PORT || 3000);
 
+// 미들웨어들간에도 순서가 중요하다!
+// 미들웨어는 내부적으로 next를 호출한다!
 app.use(morgan('dev'));
 app.use(cookieParser('smleepassword'));
 app.use(express.json());// 클라이언트에서 json 데이터를 보냈을때 json 데이터를 파싱해서 req.body에 담아줌 
 app.use(express.urlencoded({extended:true}));// form 데이터를 파싱해줌, true : qs , false : querystring
+app.use('/', express.static(path.join(__dirname, 'public'))); // 정적 파일들을 제공하는 라우터 역할 
 
 app.use((req,res,next) => {
     console.log('모든 요청에 다 실행됩니다.');
