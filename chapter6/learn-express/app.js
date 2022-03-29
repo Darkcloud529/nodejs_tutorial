@@ -15,6 +15,15 @@ app.set( 'port', process.env.PORT || 3000);
 // 미들웨어는 내부적으로 next를 호출한다!
 app.use(morgan('dev'));
 app.use(cookieParser('smleepassword'));
+app.use(session({
+    resave: false,
+    saveUninitialized: false,
+    secret: 'smleepassword', //cookieParser 동일하게 만들면 좋다. 
+    cookie: {
+        httpOnly: true,
+    },
+    name:'connect.sid'
+})); // 
 app.use(express.json());// 클라이언트에서 json 데이터를 보냈을때 json 데이터를 파싱해서 req.body에 담아줌 
 app.use(express.urlencoded({extended:true}));// form 데이터를 파싱해줌, true : qs , false : querystring
 app.use('/', express.static(path.join(__dirname, 'public'))); // 정적 파일들을 제공하는 라우터 역할 
