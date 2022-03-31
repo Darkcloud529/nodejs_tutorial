@@ -10,12 +10,13 @@ try {
 }
 
 const upload = multer({
-    storage: multer.diskStorage({ // 메모리 스토리지
+    // storage: 업로드한 파일을 어디에 저장할 것인가 
+    storage: multer.diskStorage({
         destination(req, file, done) {
           done(null, 'uploads/'); // 저장할 위치
         },
         filename(req, file, done) {
-          const ext = path.extname(file.originalname);
+          const ext = path.extname(file.originalname); // 확장자
           done(null, path.basename(file.originalname, ext) + Date.now() + ext);
         },
       }),
@@ -25,8 +26,12 @@ const upload = multer({
 app.get('/upload', (req, res) => {
     res.sendFile(path.join(__dirname, 'multipart.html'));
   });
-  app.post('/upload', upload.single('image'), (req, res) => {
+// app.use(upload.single('image'));
+// 위 방법도 가능하지만 이미지 업로드의 경우 특정 라우터에서만 해당되기 때문에 위 방법을 잘 사용하지 않는다. 
+
+// upload.single, array, field, none() 경우는 form 내 형태에 따라 다르다. 
+app.post('/upload', upload.single('image'), (req, res) => {
     console.log(req.file);
     res.send('ok');
-  });
+});
   

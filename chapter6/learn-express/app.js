@@ -1,14 +1,19 @@
+const dotenv = require('dotenv');
 const express = require('express');
 const path = require('path');
 const session = require('express-session');
 const multer = require('multer');
-const app = express();
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
+
+dotenv.config(); // dotenv는 최대한 상단에 위채해주며 사용하는 키에 따라 위치는 상단에서도 조금 달라진다. 
+const app = express();
 
 // 작성할 때 순서가 중요합니다. 
 // 위에서부터 아래로 진행됩니다!
 // 범위가 넓은 미들웨어는 뒤쪽으로 이동
+
+
 app.set( 'port', process.env.PORT || 3000);
 
 // 미들웨어들간에도 순서가 중요하다!
