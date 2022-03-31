@@ -7,6 +7,10 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 
 dotenv.config(); // dotenv는 최대한 상단에 위채해주며 사용하는 키에 따라 위치는 상단에서도 조금 달라진다. 
+// 라우터 분리하기 
+const indexRouter = require('./routes');
+const userRouter = require('./routes/user');
+
 const app = express();
 
 // 작성할 때 순서가 중요합니다. 
@@ -94,6 +98,9 @@ app.use((req,res,next) => {
 //     console.log('실행되나요?');
 // });
 
+// 분리된 라우터 불럴오기
+app.use('/', indexRouter);
+app.use('/user', userRouter);
 
 app.get('/', (req, res, next) => {
     //res.send('Hello, Express');
