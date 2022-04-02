@@ -23,5 +23,8 @@ module.exports = class Comment extends Sequelize.Model {
     });
   }
 
-  static associate(db) {}
+  static associate(db) {
+      // 영어 해석을 통해서 관계 파악하기
+      db.Comment.belongsTo(db.User, {foreginKey:'commenter', targetKey:'id'});
+  }
 };
