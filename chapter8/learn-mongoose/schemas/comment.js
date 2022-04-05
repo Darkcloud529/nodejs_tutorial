@@ -5,6 +5,7 @@ const { Types: { ObjectId } } = Schema;
 const commentSchema = new Schema({
   commenter: {
     type: ObjectId,
+    //type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: 'User',
   },
