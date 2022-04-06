@@ -7,6 +7,9 @@ const router = express.Router();
 router.route('/')
   .get(async (req, res, next) => {
     try {
+        // 아래의 코드를 봤을때 
+        // 유저의 수를 찾는데 유저의 수가 점점 많아질수록
+        // 아래의 코드는 전체적으로 시간을 느리게 만들어버린다. 
       const users = await User.find({});
       res.json(users);
     } catch (err) {
