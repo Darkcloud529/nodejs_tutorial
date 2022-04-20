@@ -2,7 +2,8 @@ const express = require('express');
 const axios = require('axios');
 
 const router = express.Router();
-const URL = 'http://localhost:8002/v1';
+//const URL = 'http://localhost:8002/v1';
+const URL = 'http://localhost:8002/v2';
 axios.default.headers.origin = 'http://localhost:4000'; // origin 헤더 추가
 
 // NodeBird API에 요청을 보내는 함수

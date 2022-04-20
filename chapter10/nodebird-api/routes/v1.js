@@ -1,10 +1,12 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 
-const {verifyToken} = require('./middlewares');
+const {verifyToken, deprecated} = require('./middlewares');
 const {User, Domain, Post, Hashtag} = require('../models');
 
 const router = express.Router();
+
+router.use(deprecated); // v1 에 접근한 모든 요청에 deprecated 응답
 
 router.post('/token', async (req, res) => {
     const {clientSecret} = req.body;
