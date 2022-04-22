@@ -4,7 +4,8 @@
   "description": "익스프레스로 만드는 sns 서비서",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app"
+    "start": "nodemon app",
+    "test": "jest"
   },
   "author": "smlee",
   "license": "MIT",
@@ -25,6 +26,7 @@
     "sequelize-cli": "^6.4.1"
   },
   "devDependencies": {
+    "jest": "^27.5.1",
     "nodemon": "^2.0.15"
   }
 }

@@ -6,12 +6,12 @@ const router = express.Router();
 
 router.use((req, res, next) => {
   res.locals.user = req.user;
-  res.locals.followerCount =  0; // 팔로워 수
-  res.locals.followingCount = 0; // 팔로잉 수
-  res.locals.followerIdList = []; // 
-  // res.locals.followerCount = req.user ? req.user.Followers.length : 0; // 팔로워 수
-  // res.locals.followingCount = req.user ? req.user.Followings.length : 0; // 팔로잉 수
-  // res.locals.followerIdList = req.user ? req.user.Followings.map(f=>f.id) : []; // 
+  // res.locals.followerCount =  0; // 팔로워 수
+  // res.locals.followingCount = 0; // 팔로잉 수
+  // res.locals.followerIdList = []; // 
+  res.locals.followerCount = req.user ? req.user.Followers.length : 0; // 팔로워 수
+  res.locals.followingCount = req.user ? req.user.Followings.length : 0; // 팔로잉 수
+  res.locals.followerIdList = req.user ? req.user.Followings.map(f=>f.id) : []; // 
   next();
 });
 
